@@ -1,3 +1,3 @@
-module github.com/jevgbur/go-projects
+module temp_converter
 
 go 1.25.0

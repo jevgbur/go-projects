@@ -4,24 +4,8 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"temp_converter/conversions"
 )
-
-type Temperature struct {
-	Value float64
-	Unit  string
-}
-
-func celsiusToFahrenheit(t *Temperature) *Temperature {
-	t.Value = (t.Value * 1.8) + 32
-	t.Unit = "F"
-	return &Temperature{Value: t.Value, Unit: t.Unit}
-}
-
-func fahrenheitToCelsius(t *Temperature) *Temperature {
-	t.Value = (t.Value - 32) / 1.8
-	t.Unit = "C"
-	return &Temperature{Value: t.Value, Unit: t.Unit}
-}
 
 func main() {
 	if len(os.Args) != 3 {
@@ -39,19 +23,18 @@ func main() {
 	}
 
 	// Create the pointer to Temperature using parsed inputs
-	temp := &Temperature{Value: value, Unit: unit}
+	temp := conversions.Temperature{Value: value, Unit: unit}
 
-	var convertedTemp *Temperature
+	var out *conversions.Temperature
 
 	switch temp.Unit {
 	case "C":
-		convertedTemp = celsiusToFahrenheit(temp)
+		out = conversions.CelsiusToFahrenheit(&temp)
 	case "F":
-		convertedTemp = fahrenheitToCelsius(temp)
+		out = conversions.FahrenheitToCelsius(&temp)
 	default:
 		fmt.Println("Invalid unit. Please provide 'C' for Celsius or 'F' for Fahrenheit.")
 		os.Exit(1)
 	}
-	fmt.Printf("%.0f %s\n", convertedTemp.Value, convertedTemp.Unit)
-
+	fmt.Printf("%.0f %s\n", out.Value, out.Unit)
 }
