@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 	"strconv"
-	"temp_converter/conversions"
+	"temp_converter/temp_conversions"
 )
 
 func main() {
@@ -23,15 +23,15 @@ func main() {
 	}
 
 	// Create the pointer to Temperature using parsed inputs
-	temp := conversions.Temperature{Value: value, Unit: unit}
+	temp := temp_conversions.Temperature{Value: value, Unit: unit}
 
-	var out *conversions.Temperature
+	var out *temp_conversions.Temperature
 
 	switch temp.Unit {
 	case "C":
-		out = conversions.CelsiusToFahrenheit(&temp)
+		out = temp_conversions.CelsiusToFahrenheit(&temp)
 	case "F":
-		out = conversions.FahrenheitToCelsius(&temp)
+		out = temp_conversions.FahrenheitToCelsius(&temp)
 	default:
 		fmt.Println("Invalid unit. Please provide 'C' for Celsius or 'F' for Fahrenheit.")
 		os.Exit(1)
